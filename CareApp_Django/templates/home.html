@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 100px 0; text-align: center; }
+    .hero h1 { font-size: 4em; margin-bottom: 20px; font-weight: 700; }
+    .hero p { font-size: 1.5em; margin-bottom: 40px; opacity: 0.9; }
+    .cta-btn { display: inline-block; background: #ffd700; color: #333; padding: 20px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.2em; transition: all 0.3s; box-shadow: 0 8px 25px rgba(255,215,0,0.3); }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,215,0,0.4); }
+    
+    .features { padding: 100px 30px; max-width: 1200px; margin: 0 auto; }
+    .features h2 { text-align: center; font-size: 3em; margin-bottom: 60px; color: #2d3748; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+    .feature-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s; }
+    .feature-card:hover { transform: translateY(-10px); }
+    .feature-icon { font-size: 4em; margin-bottom: 20px; }
+    .feature-card h3 { font-size: 1.8em; margin-bottom: 15px; color: #2d3748; }
+    .feature-card p { color: #666; line-height: 1.8; }
+    
+    .stats { background: #f8f9fa; padding: 80px 30px; }
+    .stats-container { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .stats h2 { font-size: 3em; margin-bottom: 50px; color: #2d3748; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+    .stat-item { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    .stat-number { font-size: 3em; font-weight: 700; color: #667eea; margin-bottom: 10px; }
+    .stat-label { color: #666; font-size: 1.2em; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>Predict Care Transition Success</h1>
+        <p>Advanced AI-powered prediction system for healthcare workforce planning</p>
+        <a href="{% url 'predict' %}" class="cta-btn">Start Prediction</a>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Why Choose CarePredict?</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3>AI-Powered Analysis</h3>
+            <p>Advanced machine learning algorithms analyze multiple factors to provide accurate predictions about care transition likelihood.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Data-Driven Insights</h3>
+            <p>Comprehensive analysis of academic performance, demographics, and training metrics to deliver actionable insights.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Instant Results</h3>
+            <p>Get immediate predictions and personalized recommendations to optimize workforce planning and training programs.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Targeted Interventions</h3>
+            <p>Identify students who need additional support and provide specific recommendations to improve transition success.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Performance Tracking</h3>
+            <p>Monitor key performance indicators and track improvements in care transition rates over time.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure & Reliable</h3>
+            <p>Built with privacy and security in mind, ensuring all data is handled with the highest standards of protection.</p>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-container">
+        <h2>Impact & Results</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Prediction Accuracy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">14</div>
+                <div class="stat-label">Key Features Analyzed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Students Evaluated</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">85%</div>
+                <div class="stat-label">Improvement Rate</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

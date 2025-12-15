@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}Care Transition Prediction{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", "Segoe UI", sans-serif;
+        line-height: 1.6;
+      }
+
+      /* Navigation */
+      .navbar {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 10px 0;
+      }
+      .logo img {
+        height: 50px;
+        width: auto;
+        margin-right: 10px;
+        border-radius: 8px;
+      }
+      .logo-text {
+        color: white;
+        font-size: 1.8em;
+        font-weight: 700;
+      }
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+      .nav-links li {
+        margin-left: 40px;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.1em;
+        padding: 20px 0;
+        display: block;
+        transition: all 0.3s;
+        position: relative;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: #ffd700;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: #ffd700;
+        transition: width 0.3s;
+      }
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        width: 100%;
+      }
+      
+      /* Mobile Menu */
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5em;
+        cursor: pointer;
+        padding: 20px 0;
+      }
+      
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .nav-container {
+          padding: 0 20px;
+        }
+        .logo-text {
+          font-size: 1.5em;
+        }
+        .logo img {
+          height: 40px;
+        }
+        .mobile-menu-btn {
+          display: block;
+        }
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 80px);
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          padding-top: 50px;
+          transition: left 0.3s ease;
+        }
+        .nav-links.active {
+          left: 0;
+        }
+        .nav-links li {
+          margin: 0;
+          margin-bottom: 30px;
+        }
+        .nav-links a {
+          font-size: 1.3em;
+          padding: 15px 0;
+        }
+      }
+
+      /* Main content */
+      .main-content {
+        margin-top: 80px;
+        min-height: calc(100vh - 80px);
+      }
+
+      /* Footer */
+      .footer {
+        background: #2d3748;
+        color: white;
+        text-align: center;
+        padding: 30px;
+        margin-top: 50px;
+      }
+    </style>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="{% url 'home' %}" class="logo">
+          <img src="{% static 'logo.JPG' %}" alt="CarePredict Logo">
+          <span class="logo-text">CarePredict</span>
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        <ul class="nav-links" id="navLinks">
+          <li>
+            <a
+              href="{% url 'home' %}"
+              class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+              onclick="closeMobileMenu()"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'about' %}"
+              class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+              onclick="closeMobileMenu()"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'analysis' %}"
+              class="{% if request.resolver_match.url_name == 'analysis' %}active{% endif %}"
+              onclick="closeMobileMenu()"
+              >Analysis</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'predict' %}"
+              class="{% if request.resolver_match.url_name == 'predict' %}active{% endif %}"
+              onclick="closeMobileMenu()"
+              >Predict</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">{% block content %}{% endblock %}</main>
+
+    <footer class="footer">
+      <p>
+        &copy;2025 CarePredict. Empowering healthcare workforce planning through
+        AI.
+      </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+      function toggleMobileMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('active');
+      }
+      
+      function closeMobileMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.remove('active');
+      }
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const navbar = document.querySelector('.navbar');
+        const navLinks = document.getElementById('navLinks');
+        if (!navbar.contains(event.target)) {
+          navLinks.classList.remove('active');
+        }
+      });
+    </script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

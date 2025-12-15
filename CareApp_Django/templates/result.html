@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Prediction Result{% endblock %}
+
+{% block extra_css %}
+<style>
+  .main-content { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 50px 20px; display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 80px); }
+  .container { max-width: 700px; width: 100%; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+  .header { background: linear-gradient(135deg, {% if will_transition %}#10b981{% else %}#ef4444{% endif %} 0%, {% if will_transition %}#059669{% else %}#dc2626{% endif %} 100%); color: white; padding: 40px; text-align: center; }
+  .header h1 { font-size: 2.5em; margin-bottom: 20px; }
+  .probability { font-size: 4em; font-weight: bold; margin: 20px 0; }
+  .content { padding: 40px; }
+  .result-text { font-size: 1.5em; color: #333; text-align: center; margin-bottom: 30px; font-weight: 600; }
+  .insights { background: #f8f9fa; padding: 30px; border-radius: 12px; margin-top: 20px; }
+  .insights h2 { color: #333; margin-bottom: 20px; font-size: 1.5em; }
+  .insight-item { margin-bottom: 15px; padding-left: 25px; position: relative; line-height: 1.6; color: #555; }
+  .insight-item:before { content: "•"; position: absolute; left: 0; color: {% if will_transition %}#10b981{% else %}#ef4444{% endif %}; font-size: 1.5em; }
+  .btn-container { text-align: center; margin-top: 30px; }
+  .btn { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; margin: 0 10px; }
+  .btn:hover { transform: translateY(-2px); }
+</style>
+{% endblock %} {% block content %}
+<div class="container">
+  <div class="header">
+    <h1>Prediction Result</h1>
+    <div class="probability">{{ probability_percentage }}%</div>
+    <p style="font-size: 1.2em">Transition Probability</p>
+  </div>
+
+  <div class="content">
+    <div class="result-text">
+      {% if will_transition %} ✓ Will Transition to Care {% else %} Likely Not
+      to Transition {% endif %}
+    </div>
+
+    <div class="insights">
+      {% if failure_reasons %}
+      <h2>Issues Identified</h2>
+      {% for reason in failure_reasons %}
+      <div class="insight-item">{{ reason }}</div>
+      {% endfor %} {% endif %}
+
+      <h2>
+        {% if will_transition %}
+          {% if failure_reasons %}Despite Issues - Recommendations{% else %}Key Indicators{% endif %}
+        {% else %}
+          Recommendations
+        {% endif %}
+      </h2>
+
+      {% if duration_fail %}
+        <!-- Duration failure overrides all other recommendations -->
+        {% for reason in failure_reasons %}
+          {% if 'Childcare' in reason %}
+            <div class="insight-item">
+              Complete the required 2-month minimum training duration for Childcare before reapplying
+            </div>
+          {% elif 'Eldercare' in reason %}
+            <div class="insight-item">
+              Complete the required 3-month minimum training duration for Eldercare before reapplying
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% elif will_transition %}
+        {% if failure_reasons %}
+          <div class="insight-item">
+            Address the performance gaps identified above through targeted training
+          </div>
+          <div class="insight-item">
+            Provide additional mentorship and support to improve weak areas
+          </div>
+          <div class="insight-item">
+            Monitor progress closely during the transition period
+          </div>
+          <div class="insight-item">
+            Consider extended probationary period with regular assessments
+          </div>
+        {% else %}
+          <div class="insight-item">
+            The individual shows strong indicators for transitioning into caregiving roles
+          </div>
+          <div class="insight-item">
+            Consider providing advanced training opportunities to enhance their caregiving skills
+          </div>
+          <div class="insight-item">
+            Offer mentorship programs to support their transition journey
+          </div>
+          <div class="insight-item">
+            Ensure proper certification and licensing pathways are available
+          </div>
+          <div class="insight-item">
+            Connect them with job placement services in the care sector
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="insight-item">
+          Focus on improving academic performance, particularly in practical assessments and final grades
+        </div>
+        <div class="insight-item">
+          Increase engagement with hospital internship programs to gain hands-on experience
+        </div>
+        <div class="insight-item">
+          Enhance attendance and participation in practical sessions
+        </div>
+        <div class="insight-item">
+          Provide additional support through tutoring and mentorship programs
+        </div>
+        <div class="insight-item">
+          Consider career counseling to explore alternative pathways or address barriers to caregiving
+        </div>
+        <div class="insight-item">
+          Strengthen theoretical knowledge through supplementary coursework and study materials
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="btn-container">
+      <a href="{% url 'predict' %}" class="btn">Make Another Prediction</a>
+      <a href="{% url 'home' %}" class="btn">Back to Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

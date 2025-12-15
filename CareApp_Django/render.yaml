@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: caregiver-app
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn careapp.wsgi:application"
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true

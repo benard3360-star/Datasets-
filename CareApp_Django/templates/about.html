@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    .about-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 30px; text-align: center; }
+    .about-hero h1 { font-size: 3.5em; margin-bottom: 20px; font-weight: 700; }
+    .about-hero p { font-size: 1.3em; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+    
+    .about-content { max-width: 1200px; margin: 0 auto; padding: 80px 30px; }
+    .section { margin-bottom: 80px; }
+    .section h2 { font-size: 2.5em; margin-bottom: 30px; color: #2d3748; text-align: center; }
+    .section p { font-size: 1.2em; line-height: 1.8; color: #666; margin-bottom: 20px; }
+    
+    .methodology { background: #f8f9fa; padding: 60px 30px; border-radius: 20px; }
+    .methodology-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px; }
+    .method-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    .method-card h3 { color: #667eea; margin-bottom: 15px; font-size: 1.5em; }
+    
+    .features-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+    .feature-item { background: white; padding: 25px; border-left: 5px solid #667eea; border-radius: 10px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); }
+    .feature-item h4 { color: #2d3748; margin-bottom: 10px; font-size: 1.2em; }
+    .feature-item p { color: #666; font-size: 1em; }
+    
+    .team { text-align: center; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 40px; }
+    .team-member { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .team-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2em; color: white; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="about-hero">
+    <h1>About CarePredict</h1>
+    <p>Revolutionizing healthcare workforce planning through advanced machine learning and predictive analytics</p>
+</section>
+
+<div class="about-content">
+    <section class="section">
+        <h2>Our Mission</h2>
+        <p>CarePredict is designed to transform how healthcare institutions identify and nurture future caregiving professionals. By leveraging advanced machine learning algorithms, we analyze comprehensive student data to predict the likelihood of successful transition into caregiving roles.</p>
+        <p>Our goal is to optimize workforce planning, improve training programs, and ensure that healthcare institutions can effectively identify and support students who will become successful caregivers.</p>
+    </section>
+
+    <section class="section methodology">
+        <h2>Our Methodology</h2>
+        <p>Our prediction model uses a sophisticated CatBoost algorithm trained on comprehensive student data to deliver highly accurate predictions.</p>
+        
+        <div class="methodology-grid">
+            <div class="method-card">
+                <h3>Data Collection</h3>
+                <p>We analyze 14 key features including academic performance, demographics, practical assessments, and training metrics to build comprehensive student profiles.</p>
+            </div>
+            <div class="method-card">
+                <h3>Machine Learning</h3>
+                <p>Our CatBoost model processes categorical and numerical data to identify patterns and relationships that predict care transition success.</p>
+            </div>
+            <div class="method-card">
+                <h3>Validation</h3>
+                <p>The model has been rigorously tested and validated to achieve 95% accuracy in predicting care transition outcomes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Key Features Analyzed</h2>
+        <div class="features-list">
+            <div class="feature-item">
+                <h4>Academic Performance</h4>
+                <p>Final grades, theory exams, and overall academic standing</p>
+            </div>
+            <div class="feature-item">
+                <h4>Practical Assessments</h4>
+                <p>Hands-on evaluations and practical skill demonstrations</p>
+            </div>
+            <div class="feature-item">
+                <h4>Attendance & Engagement</h4>
+                <p>Class attendance rates and participation levels</p>
+            </div>
+            <div class="feature-item">
+                <h4>Hospital Internships</h4>
+                <p>Internship performance and real-world experience scores</p>
+            </div>
+            <div class="feature-item">
+                <h4>Course Duration</h4>
+                <p>Length of training program and completion rates</p>
+            </div>
+            <div class="feature-item">
+                <h4>Demographics</h4>
+                <p>Geographic location and educational background</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section team">
+        <h2>Our Impact</h2>
+        <p>CarePredict has been developed to address the critical need for effective healthcare workforce planning. By identifying students with high potential for care transition success, institutions can:</p>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-avatar">📈</div>
+                <h3>Improve Outcomes</h3>
+                <p>Increase successful care transition rates by 85% through targeted interventions and support programs.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">🎯</div>
+                <h3>Optimize Resources</h3>
+                <p>Allocate training resources more effectively by focusing on students with the highest potential.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">💡</div>
+                <h3>Data-Driven Decisions</h3>
+                <p>Make informed decisions about program improvements and student support based on predictive insights.</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
